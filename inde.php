@@ -1,3 +1,10 @@
+<?php
+    require_once 'config/conexion.php';
+    require_once 'config/sql_class.php';
+
+    $consulta = new sql_class();
+    $resultado_corr = $consulta-> ConsultaCorreo();
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -17,7 +24,12 @@
 -->
     <div>
         <label for="">Para:</label>
-        <input type="text" name="para">
+        <select name="para" id="para">
+        <option value="todos">Todos</option>
+        <?php while($display = $resultado_corr->fetch_assoc()){ ?>
+            <option value="<?php echo $display['clienteCorreo'];?>"><?php echo $display['clienteCorreo'];?></option>
+        <?php } ?>
+        </select>
     </div>
 
     <div>
